@@ -1,18 +1,17 @@
-import { io } from 'socket.io-client'
-function App() {
-  const socket = io('http://localhost:3000', {
-    transports: ['websocket']
-  })
-  socket.on('connection', function (client) {
-    var client_ip_address = socket.request.connection.remoteAddress;
-  })
+import io from 'socket.io-client'
+const socket = io.connect('http://localhost:8080')
 
-  
+
+
+function App() {
+  const send = () => {
+    socket.emit('send_message' , {message: 'asdffd'})
+  }  
 
  
   return (
     <div className="App">
-    afasdf
+      <button onClick={send}>submit</button>
     </div>
   );
 }

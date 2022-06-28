@@ -3,26 +3,20 @@ const app = express();
 const http = require('http')
 const cors = require('cors');
 
-
-
 app.use(cors())
 
 const test = http.createServer(app)
 
-const socket =  require('socket.io')(3000, {
+const io =  require('socket.io')(8080, {
     cors: {
-        origin: 'http://localhost/:3001',
-        methods: ['post','get'],
-        allowedHeaders: ["my-custom-header"],
+        origin: 'http://localhost:3000',
+        methods: ['POST','GET'],
         credentials: true
     }
 })
 
-// socket.on('error',  err => {
-//     console.log(err)
-// })
-
-socket.on('connection', function (user) {
-    var address = user.handshake.address;
-console.log('New connection from ' + address.address + ':' + address.port);
-  });
+io.on('connection', (socket) => {
+    socket.on('send_message', (data) => {
+        console.log(data)
+    })
+})
