@@ -16,11 +16,10 @@ const io =  require('socket.io')(8080, {
 })
 
 io.on('connection', (socket) => {
-    socket.on('your_message', (data) => {
-        console.log(data)
+    socket.on('your_message', (message) => {
+        socket.broadcast.emit('All' , message)
     })
-    socket.broadcast.emit('global_message' , (data) => {
-        console.log(data);
-    })
+    
+ 
 })
 
