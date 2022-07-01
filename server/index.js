@@ -10,7 +10,7 @@ const test = http.createServer(app)
 const io =  require('socket.io')(8080, {
     cors: {
         origin: 'http://localhost:3000',
-        methods: ['POST','GET'],
+        methods: ['POST','GET' , 'PUT' , 'DELETE'],
         credentials: true
     }
 })
@@ -18,6 +18,7 @@ const io =  require('socket.io')(8080, {
 io.on('connection', (socket) => {
     socket.on('your_message', (message) => {
         socket.broadcast.emit('All' , message)
+        console.log(message)
     })
     
  
