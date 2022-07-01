@@ -1,7 +1,7 @@
 import React, {useState , useEffect} from 'react'
 import styled from 'styled-components'
 import io from 'socket.io-client'
-// import person from './user.png'
+import person from './user.png'
 const socket = io.connect('http://localhost:8080')
 
 
@@ -9,33 +9,27 @@ function App() {
   const [message , setMessage] = useState('')
   const [test , setElement] = useState([])
   
+  
+  const app = (e) => {
+    e.preventDefault()
+    socket.emit('your_message', `${message}`)
+    setElement(([...test , message]))
+  }
+  
   useEffect(() => {
     socket.on('All', (data) => {
       setElement(data)
     })
   } , [socket])
   
-  const app = () => {
-    socket.emit('your_message', `${message}`)
-  }
-  
-  
-
-
-
-
-  
-  
   return (
-    
     <Room>
       <form>
         <div id='room' className="room">
-          <div className="msg">
-            {/* <img src={person} /> */}
-            <p>test test test test tset tsettest tsest test test tset set</p>
-          </div>
-          
+                    <div className="msg">
+                    <img src={person}/>
+                    <p>{test}</p>
+                    </div>
         </div>
         <footer>
           <input typeof='text' onChange={e => setMessage(e.target.value)} required placeholder='your message...' />

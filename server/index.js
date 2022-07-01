@@ -20,7 +20,4 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('All' , message)
         console.log(message)
     })
-    
- 
 })
-
